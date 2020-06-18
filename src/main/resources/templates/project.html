@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+	<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+		<head>
+			<meta charset="UTF-8">
+				<title>TaskManager</title>
+				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+				</head>
+				<body>
+					<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+						<a class="navbar-brand" href="#">User navigation--></a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"/>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarCollapse">
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item ">
+									<a class="nav-link" href="/home">Home
+									</a>
+								</li>
+								<li class="nav-item active">
+									<a class="nav-link" href="/projects">My projects</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link " href="/projects/add">Create project</a>
+									<li class="nav-item">
+										<a class="nav-link " href="/users/me">My profile</a>
+										<li class="nav-item">
+											<a class="nav-link " href="/logout">Logout</a>
+										</li>
+									</li>
+								</li>
+							</ul>
+						</div>
+					</nav>
+					<div class="mx-auto" style="width: 500px;">
+						<div class="alert alert-dark" role="alert">
+							<h1 style="color:blue">
+								<div class="mx-auto" style="width: 100px;">
+									<th th:text="${project.name}"/>
+								</div>
+							</h1>
+						</div>
+						<h3>
+							<p class="font-italic">
+								<th th:text="${project.description}"/>
+							</p>
+						</h3>
+						<div class="alert alert-info" role="alert">
+							<div th:if="${members.size() > 0}">
+								<h3>Shared with:</h3>
+								<ul>
+									<li th:each="member : ${members}">
+										<h4><div th:text="${member.firstName} + ' ' + ${member.lastName}"/></h4>
+									</li>
+								</ul>
+							</div>
+							<div th:if="${project.tasks.size() > 0}">
+								<h3>Tasks:</h3>
+								<ul>
+									<li th:each="task : ${project.tasks}">
+										<div>
+											<h4><a th:text="${task.name}" th:href="@{/task/{taskId}(taskId=${task.id})}"/></h4>
+										</div>
+										<h5><div th:text="${task.description}" style="">...</div></h5>
+										<div>
+											<h5>
+											<form method="POST" th:action="@{/task/{task}/delete(task=${task.id})}">
+												<button type="submit" value="value">DELETE</button>
+											</form>
+											</h5>
+										</div>
+										<div>
+											<h6><a th:text="'+ADD to this task(' + ${task.name} + ') A TAG of this project(' + ${project.name} + ')'" th:href="@{'/projects/' + ${project.id} + '/task/' + ${task.id}}">...</a>
+											</h6>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div th:if="${project.tags.size() > 0}">
+								<h3>Tags:</h3>
+								<ul>
+									<li th:each="tag : ${project.tags}">
+										<div>
+											<h4><a th:text="${tag.name}" th:href="@{/tag/{tagId}(tagId=${tag.id})}"/>
+											</h4>
+										</div>
+										<h5><div th:text="${tag.description}" style="">...</div>
+										</h5>
+										<h5><div th:text="${tag.color}" >...</div>
+										</h5>
+										<div>
+											<h5>
+											<form method="POST" th:action="@{'/tag/' + ${project.id} + '/' + ${tag.id} + '/delete'}">
+												<button type="submit" value="value">DELETE</button>
+											</form>
+											</h5>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<h4>
+							<a th:href="@{/{projectId}/task/add(projectId=${project.id})}">Add Task</a>
+						</h4>
+						<h4>
+							<a th:href="@{/{projectId}/tag/add(projectId=${project.id})}">Add Tag</a>
+						</h4>
+						<h4>
+							<a th:href="@{ '/allusers/' + ${project.id} }">Share with</a>
+						</h4>
+						<h4>
+							<a href="/projects">Back to my projects</a>
+						</h4>
+					</div>
+				</body>
+			</html>

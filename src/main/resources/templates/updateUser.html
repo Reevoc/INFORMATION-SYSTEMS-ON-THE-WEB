@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+	<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+		<head>
+			<title>TaskManager</title>
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+			</head>
+			<body>
+				<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+					<a class="navbar-brand" href="#">User navigation--></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"/>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarCollapse">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item ">
+								<a class="nav-link" href="/home">Home
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/projects">My projects</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link " href="/projects/add">Create project</a>
+								<li class="nav-item active">
+									<a class="nav-link" href="/users/me">My profile</a>
+									<li class="nav-item">
+										<a class="nav-link " href="/logout">Logout</a>
+									</li>
+								</li>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				<div class="alert alert-warning" role="alert">
+						<div class="mx-auto" style="width: 550px;">
+							<h1><p class="font-weight-bold">Update your profile</p></h1>
+						</div>
+				</div>
+				<h4>
+					<a href="/users/me/update">Reset info</a>
+				</h4>
+				<form id="UpdateUserForm" th:action="@{/users/me/update}" method="POST">
+					<table class="table">
+						<tr>
+							<td>
+								<label for="firstNameInput"><h4>First Name</h4></label>
+							</td>
+							<td>
+								<h4><input id="firstNameInput" type="text" th:field="${loggedUser.firstName}" placeholder="FIRST NAME"/></h4>
+							</td>
+							<!--<td th:if="${#fields.hasErrors('userFormUpdate.firstName')}" 
+						th:errors="${userFormUpdate.firstName}" th:style="'color:red'"></td>
+-->
+						</tr>
+						<tr>
+							<td>
+								<label for="lastNameInput"><h4>Last Name</h4></label>
+							</td>
+							<td>
+								<h4><input id="lastNameInput" type="text" th:field="${loggedUser.lastName}" placeholder="LAST NAME"/></h4>
+							</td>
+							<!--<td th:if="${#fields.hasErrors('userFormUpdate.lastName')}" 
+					th:errors="${userFormUpdate.lastName}" th:style="'color:red'"></td>
+-->
+						</tr>
+						<tr>
+							<td>
+								<label for="userNameInput"><h4>Username</h4></label>
+								<td>
+									<h4><input id="userNameInput" type="text" th:field="${loggedCredentials.username}" placeholder="USERNAME" required /></h4>
+								</td>
+								<!--			<td th:if="${#fields.hasErrors('userCredentials.username')}" th:errors="${userCredentials.username}" th:style="'color:red'"></td>
+-->
+							</tr>
+							<tr>
+								<td>
+									<label for="passwordInput"><h4>Password</h4></label>
+								</td>
+								<td>
+									<h4><input id="passwordInput" type="password" th:field="${loggedCredentials.password}" placeholder="PASSWORD"/></h4>
+								</td>
+								<!--			<td th:if="${#fields.hasErrors('userCredentials.password')}" th:errors="${userCredentials.password}" th:style="'color:red'"></td>
+-->
+							</tr>
+							<tr>
+								<td>
+									<button type="submit"><h4>Update</h4></button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</body>
+			</html>

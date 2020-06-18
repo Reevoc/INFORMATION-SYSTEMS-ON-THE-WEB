@@ -1,0 +1,75 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<title>TaskManager</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		</head>
+		<body>
+			<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+				<a class="navbar-brand" href="#">User navigation--></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"/>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarCollapse">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item ">
+							<a class="nav-link" href="/home">Home
+							</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="/projects">My projects</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link " href="/projects/add">Create project</a>
+							<li class="nav-item">
+								<a class="nav-link " href="/users/me">My profile</a>
+								<li class="nav-item">
+									<a class="nav-link " href="/logout">Logout</a>
+								</li>
+							</li>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<div class="mx-auto" style="width: 500px;">
+				<div class="alert alert-primary" role="alert">
+					<h1>Register new Task</h1>
+				</div>
+				<form id="task" th:action="@{'/'+ ${project.id} +'/task/add'}" th:object="${task}" method="POST">
+					<table class="table">
+						<tr>
+							<td>
+								<label for="projectNameInput">
+									<h3>Task Name</h3>
+								</label>
+								<td>
+									<h3>
+										<input id="taskNameInput" type="text" placeholder="NAME" required th:field="*{name}"/>
+									</h3>
+								</td>
+								<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:style="'color:red'"/>
+							</tr>
+							<tr>
+								<td>
+									<label for="descriptionInput">
+										<h3>Description</h3>
+									</label>
+								</td>
+								<td>
+									<h3>
+										<input id="descriptionInput" placeholder="DESCRIPTION" th:field="*{description}"/>
+									</h3>
+								</td>
+								<td th:if="${#fields.hasErrors('description')}" th:errors="$*{description}" th:style="'color:red'"/>
+							</tr>
+							<tr>
+								<td>
+									<button type="submit">
+										<h3>Add Task</h3>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</body>
+		</html>

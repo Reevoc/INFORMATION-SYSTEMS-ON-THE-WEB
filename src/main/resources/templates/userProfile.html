@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+	<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+		<head>
+			<title>TaskManager</title>
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+			</head>
+			<body>
+				<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+					<a class="navbar-brand" href="#">User navigation--></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"/>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarCollapse">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item ">
+								<a class="nav-link" href="/home">Home
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/projects">My projects</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link " href="/projects/add">Create project</a>
+								<li class="nav-item active">
+									<a class="nav-link " href="/users/me">My profile</a>
+									<li class="nav-item">
+										<a class="nav-link " href="/logout">Logout</a>
+									</li>
+								</li>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				<div class="alert alert-info" role="alert">
+					<div class="mx-auto" style="width: 550px;">
+						<h1>Your Profile</h1>
+					</div>
+				</div>
+				<table class="table">
+					<tr>
+						<td><p class="font-weight-bold"><h3>Username</h3></p></td>
+						<td th:text="${credentials.username}">...</td>
+					</tr>
+					<tr>
+						<td><p class="font-weight-bold"><h3>Frist Name</h3></p></td>
+						
+						<td th:text="${loggedUser.firstName}">...</td>
+						</h4></p>
+					</tr>
+					<tr>
+						<td><p class="font-weight-bold"><h3>Last Name</h3></p></td>
+						<td th:text="${loggedUser.lastName}"><p class="font-italic"><h4>...</h4></p></td>
+					</tr>
+					<tr>
+						<td><p class="font-weight-bold"><h3>Role</h3></p></td>
+						<td th:text="${credentials.role}">...</td>
+					</tr>
+					<tr>
+						<td><p class="font-weight-bold"><h3>Registered at:</h3></p></td>
+						<td th:text="${loggedUser.creationTimestamp}">...</td>
+					</tr>
+					<tr>
+						<td><p class="font-weight-bold"><h3>Last Update at:</h3></p></td>
+						<td th:text="${loggedUser.lastUpdateTimestamp}">...</td>
+					</tr>
+				</table>
+				<h5>
+					<a href="/users/me/update">Update profile</a>
+				</h5>
+				<h4>
+					<a href="/home">Home page</a>
+				</h4>
+			</body>
+		</html>

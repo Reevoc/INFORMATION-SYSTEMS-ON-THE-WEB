@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+	<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+		<head>
+			<meta charset="UTF-8">
+				<title>TaskManager</title>
+				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+				</head>
+				<body>
+					<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+						<a class="navbar-brand" href="#">User navigation--></a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"/>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarCollapse">
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item ">
+									<a class="nav-link" href="/home">Home
+									</a>
+								</li>
+								<li class="nav-item active">
+									<a class="nav-link" href="/projects">My projects</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link " href="/projects/add">Create project</a>
+									<li class="nav-item">
+										<a class="nav-link " href="/users/me">My profile</a>
+										<li class="nav-item">
+											<a class="nav-link " href="/logout">Logout</a>
+										</li>
+									</li>
+								</li>
+							</ul>
+						</div>
+					</nav>
+					<div class="mx-auto" style="width: 500px;">
+						<div class="alert alert-success" role="alert">
+							<h2 style="color: grey">Task Name: <a th:text="${task.name}" style="color: Brown" /></h2>
+							
+							<h2 style="color: grey">Description: </h2>
+							<h3><p class="font-italic"><a th:text="${task.description}"/></p></h3>
+							<h2 style="color: grey">Completed: <a th:text="${task.completed}" style="color: orange"/></h2>
+							
+							<h3> Tags associated to this task:</h3>
+							<h3 th:each="tag : ${task.tags}">
+								<li>
+									<th th:text="${tag.name}"/>
+									<th th:text="${tag.description}"/>
+									<th th:text="${tag.color}"/>
+								</li>
+							</h3>
+						</div>
+						<h3>
+							<a th:href="@{'/task/'+ ${task.id} +'/edit'}">Edit the Task</a>
+						</h3>
+						<form id="commentForm" th:action="@{'/' + ${task.id} + '/comment/add'}" th:object="${comment}" method="POST">
+							<div class="alert alert-secondary" role="alert">
+								<table class="table">
+									<tr>
+										<td>
+											<label for="descriptionInput"><h5>Add Comment</h5></label>
+										</td>
+										<td>
+											<input id="descriptionInput" placeholder="COMMENT" th:field="*{description}"/>
+										</td>
+										<td th:if="${#fields.hasErrors('description')}" th:errors="$*{description}" th:style="'color:red'"/>
+									</tr>
+									<tr>
+										<td>
+											<button type="submit"><h6>Register Comment</h6></button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</form>
+						<table class="table">
+							<tr th:each="comment : ${comments}">
+								<th th:text="${comment.description}">
+							</tr>
+						</table>
+						<div class="alert alert-dark" role="alert">
+							<h3>Back to <a href="/projects">projects</a>
+							</h3>
+						</div>
+					</div>
+					</body>
